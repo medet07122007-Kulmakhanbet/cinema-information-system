@@ -70,32 +70,6 @@
 - [Функционалдық және функционалдық емес талаптар](docs/requirements.md) — №3 зертханалық жұмыс (FR-01–FR-14 және сапалық талаптар).
 - [User Story және Use Case сценарийлері](docs/use-case.md) — №3 зертханалық жұмыс.
 
-## UML диаграммалар
-
-Төмендегі суреттер `docs/diagrams/` папкасында сақталған. Олар №4 зертханалық жұмыста қарастырылған жүйенің функционалдық, динамикалық және құрылымдық модельдерін көрсетеді.
-
-### Use Case Diagram
-
-![Use Case Diagram](docs/diagrams/use-case.png)
-
-[PlantUML бастапқы коды](docs/diagrams/use-case.puml)
-
-### Sequence Diagram
-
-![Sequence Diagram](docs/diagrams/sequence-diagram.png)
-
-[PlantUML бастапқы коды](docs/diagrams/sequence-diagram.puml)
-
-### Class Diagram
-
-![Class Diagram](docs/diagrams/class-diagram.png)
-
-[PlantUML бастапқы коды](docs/diagrams/class-diagram.puml)
-
-### Activity Diagram
-
-![Activity Diagram](docs/diagrams/activity-diagram.png)
-
 ## Репозиторий құрылымы
 
 ```text
