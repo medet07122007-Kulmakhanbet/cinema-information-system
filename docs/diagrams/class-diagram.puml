@@ -1,0 +1,89 @@
+
+@startuml
+top to bottom direction
+skinparam classAttributeIconSize 0
+
+class "Пайдаланушы" as User {
+  - userId: int
+  - аты: String
+  - email: String
+  - телефон: String
+  - құпияСөз: String
+  + жүйегеКіру()
+  + жүйеденШығу()
+}
+
+class "Көрермен" as Viewer {
+  + фильмІздеу()
+  + сеансТаңдау()
+  + орынТаңдау()
+  + билетСатыпАлу()
+}
+
+class "Әкімші" as Admin {
+  + фильмҚосу()
+  + фильмӨзгерту()
+  + сеансҚосу()
+  + есепҚарау()
+}
+
+class "Фильм" as Movie {
+  - filmId: int
+  - атауы: String
+  - жанры: String
+  - ұзақтығы: int
+  + ақпаратКөрсету()
+}
+
+class "Сеанс" as Session {
+  - sessionId: int
+  - күні: Date
+  - уақыты: Time
+  - бағасы: double
+  + босОрындардыКөрсету()
+}
+
+class "Зал" as Hall {
+  - hallId: int
+  - атауы: String
+  - сыйымдылығы: int
+  + залСхемасынКөрсету()
+}
+
+class "Орын" as Seat {
+  - seatId: int
+  - қатар: int
+  - орынНөмірі: int
+  - статус: String
+  + резервтеу()
+  + босату()
+}
+
+class "Билет" as Ticket {
+  - ticketId: int
+  - qrCode: String
+  - бағасы: double
+  + билетҚұру()
+  + qrКодҚұру()
+}
+
+class "Төлем" as Payment {
+  - paymentId: int
+  - сомасы: double
+  - статус: String
+  + төлемЖасау()
+}
+
+User <|-- Viewer
+User <|-- Admin
+Viewer "1" -- "0..*" Ticket
+Movie "1" -- "0..*" Session
+Session "1" -- "1" Hall
+Hall "1" -- "1..*" Seat
+Ticket "*" --> "1" Session
+Ticket "*" --> "1" Seat
+Ticket "1" --> "1" Payment
+Admin ..> Movie
+Admin ..> Session
+
+@enduml
