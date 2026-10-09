@@ -1,0 +1,63 @@
+
+@startuml
+title Билет сатып алу және төлем жасау
+
+actor "Көрермен" as Viewer
+participant "Пайдаланушы интерфейсі" as UI
+participant "Кинотеатр жүйесі" as System
+database "Дерекқор" as DB
+participant "Төлем жүйесі" as Payment
+
+Viewer -> UI : Фильмді таңдау
+UI -> System : Фильм туралы сұраныс
+System -> DB : Фильм мәліметтерін сұрау
+DB --> System : Фильм мәліметтері
+System --> UI : Фильм ақпаратын көрсету
+UI --> Viewer : Фильм туралы ақпарат
+
+Viewer -> UI : Сеансты таңдау
+UI -> System : Сеанс мәліметін сұрау
+System -> DB : Бос орындарды тексеру
+DB --> System : Бос орындар тізімі
+System --> UI : Зал схемасын көрсету
+UI --> Viewer : Бос орындарды көрсету
+
+Viewer -> UI : Орынды таңдау
+UI -> System : Орынды резервтеу
+System -> DB : Орын статусын тексеру
+
+alt Орын бос
+  DB --> System : Орын бос
+  System -> DB : Орынды резервтеу
+
+  Viewer -> UI : Билет сатып алу
+  UI -> System : Сатып алу сұранысы
+  System -> DB : Билет бағасын есептеу
+  DB --> System : Бағасы
+  System --> UI : Төлем сомасын көрсету
+
+  Viewer -> UI : Төлем тәсілін таңдау
+  UI -> System : Төлемді бастау
+  System -> Payment : Төлем деректерін жіберу
+
+  alt Төлем сәтті
+    Payment --> System : Төлем расталды
+    System -> DB : Төлемді тіркеу
+    System -> DB : Орынды сатылған деп белгілеу
+    System -> DB : QR-код пен билетті сақтау
+    System --> UI : Электрондық билет
+    UI --> Viewer : Билет және QR-код
+  else Төлем сәтсіз
+    Payment --> System : Төлем қабылданбады
+    System -> DB : Резервті босату
+    System --> UI : Төлем қатесі
+    UI --> Viewer : Қайта төлеуді ұсыну
+  end
+
+else Орын бос емес
+  DB --> System : Орын бос емес
+  System --> UI : Басқа орын таңдау
+  UI --> Viewer : Орын қолжетімсіз
+end
+
+@enduml
